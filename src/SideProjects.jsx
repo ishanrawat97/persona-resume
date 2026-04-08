@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-const bgVideo = "https://github.com/ishanrawat97/persona-resume/releases/download/v1.0/main3.mp4";
+const bgVideo = `${import.meta.env.BASE_URL}videos/main3.mp4`;
 
 const ITEMS = [
   { id: "i", badge: "I", title: "AIRLINE TRACKER", subtitle: "Real-Time Flight Monitoring App", rank: "S" },

@@ -1,9 +1,10 @@
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
-const menuVideo = 'https://github.com/ishanrawat97/persona-resume/releases/download/v1.0/Mainn.mp4'
-const main1 = 'https://github.com/ishanrawat97/persona-resume/releases/download/v1.0/main1.mp4'
-const main2 = 'https://github.com/ishanrawat97/persona-resume/releases/download/v1.0/main2.mp4'
-const main3 = 'https://github.com/ishanrawat97/persona-resume/releases/download/v1.0/main3.mp4'
+const base = import.meta.env.BASE_URL
+const menuVideo = `${base}videos/Mainn.mp4`
+const main1 = `${base}videos/main1.mp4`
+const main2 = `${base}videos/main2.mp4`
+const main3 = `${base}videos/main3.mp4`
 import P3Menu from './P3Menu'
 import VideoPage from './VideoPage'
 import ResumePage from './ResumePage'
