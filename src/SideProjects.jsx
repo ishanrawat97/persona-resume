@@ -1,44 +1,64 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import bgVideo from "./assets/main3.mp4";
 
 const ITEMS = [
-  { id: "i", badge: "I", title: "EDUCATION", subtitle: "B.Tech CSE — Manipal University Jaipur", rank: 8 },
-  { id: "ii", badge: "II", title: "SKILLS", subtitle: "C++ / Java / Databases / CI-CD", rank: 9 },
-  { id: "iii", badge: "III", title: "EXPERIENCE", subtitle: "6+ Years — Bounteous x Accolite", rank: 10 },
-  { id: "iv", badge: "IV", title: "ACHIEVEMENTS", subtitle: "Zero Bugs / 80% Perf Gain / 7 Products", rank: 10 },
+  { id: "i", badge: "I", title: "AIRLINE TRACKER", subtitle: "Real-Time Flight Monitoring App", rank: "S" },
+  { id: "ii", badge: "II", title: "STOCKFISH EVALUATOR", subtitle: "Chess Move Analysis Engine", rank: "A" },
+  { id: "iii", badge: "III", title: "QUICK COMMERCE", subtitle: "Price Comparison Across Platforms", rank: "A" },
 ];
 
-const EDUCATION_ROWS = [
-  { index: "01", title: "B.Tech Computer Science Engineering", status: "Complete" },
-  { index: "02", title: "Manipal University Jaipur", status: "2016-2020" },
-  { index: "03", title: "CGPA: 8.34 / 10", status: "Achieved" },
+const DETAILS = [
+  {
+    index: "01",
+    title: "AIRLINE TRACKER",
+    rows: [
+      { index: "01", title: "Live flight tracking & status updates", status: "Core" },
+      { index: "02", title: "Airport delay & gate change alerts", status: "Feature" },
+      { index: "03", title: "Route visualization on interactive map", status: "Feature" },
+      { index: "04", title: "Multi-airline search & comparison", status: "Feature" },
+    ],
+    bullets: [
+      "- Track flights in real-time with live position data and ETAs.",
+      "- Get notified of delays, cancellations, and gate changes instantly.",
+      "- Search across airlines to compare schedules and pricing.",
+    ],
+  },
+  {
+    index: "02",
+    title: "STOCKFISH EVALUATOR",
+    rows: [
+      { index: "01", title: "Position evaluation with Stockfish engine", status: "Core" },
+      { index: "02", title: "Best move suggestions with depth analysis", status: "Feature" },
+      { index: "03", title: "FEN/PGN import for game analysis", status: "Feature" },
+      { index: "04", title: "Move-by-move advantage visualization", status: "Feature" },
+    ],
+    bullets: [
+      "- Evaluate any chess position using the Stockfish engine.",
+      "- Analyze full games move-by-move with advantage graphs.",
+      "- Import games via FEN or PGN and get instant evaluation.",
+    ],
+  },
+  {
+    index: "03",
+    title: "QUICK COMMERCE PRICE COMPARE",
+    rows: [
+      { index: "01", title: "Price aggregation across platforms", status: "Core" },
+      { index: "02", title: "Blinkit, Zepto, Instamart, BigBasket", status: "Sources" },
+      { index: "03", title: "Real-time price & availability tracking", status: "Feature" },
+      { index: "04", title: "Best deal recommendations", status: "Feature" },
+    ],
+    bullets: [
+      "- Compare prices across Blinkit, Zepto, Swiggy Instamart & more.",
+      "- Find the best deals on groceries and essentials in real-time.",
+      "- Track price history and get alerts when prices drop.",
+    ],
+  },
 ];
 
-const SKILLS_ROWS = [
-  { index: "01", title: "C++ (Expert), Java (Proficient)", status: "Languages" },
-  { index: "02", title: "Python, Groovy", status: "Languages" },
-  { index: "03", title: "PostgreSQL, MongoDB, Snowflake, BigQuery", status: "Databases" },
-  { index: "04", title: "Oracle, MS SQL Server, Azure SQL", status: "Databases" },
-  { index: "05", title: "JavaCC, ANTLR, libgit, WebView2", status: "Parsing" },
-  { index: "06", title: "Git, Perforce, Jenkins, Jira", status: "Tools" },
-];
-
-const EXPERIENCE_ROWS = [
-  { index: "01", title: "Lead Software Engineer — Bounteous", status: "Jan 2025+" },
-  { index: "02", title: "Senior Software Engineer — Bounteous", status: "2021-2025" },
-  { index: "03", title: "Software Developer — Abyeti / Accolite", status: "2020-2021" },
-];
-
-const ACHIEVEMENT_ROWS = [
-  { index: "01", title: "Zero QE bugs at RC for 4 consecutive years", status: "Quality" },
-  { index: "02", title: "80% database query performance improvement", status: "Perf" },
-  { index: "03", title: "7-product cross-platform breadth", status: "Scope" },
-  { index: "04", title: "Player-coach leading 6-member team", status: "Lead" },
-];
-
-export default function ResumePage({ src }) {
+export default function SideProjects({ src }) {
   const navigate = useNavigate();
-  const [active, setActive] = useState(1);
+  const [active, setActive] = useState(0);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -58,11 +78,13 @@ export default function ResumePage({ src }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [navigate]);
 
+  const detail = DETAILS[active];
+
   return (
     <div id="menu-screen">
-      <video src={src} autoPlay loop muted playsInline />
+      <video src={src || bgVideo} autoPlay loop muted playsInline />
       <div className="resume-entry-mask" aria-hidden="true">
-        <video className="resume-entry-video" src={src} autoPlay loop muted playsInline />
+        <video className="resume-entry-video" src={src || bgVideo} autoPlay loop muted playsInline />
       </div>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&display=swap');
@@ -198,7 +220,7 @@ export default function ResumePage({ src }) {
 
         .resume-title {
           font-family: 'Anton', sans-serif;
-          font-size: 56px;
+          font-size: 46px;
           line-height: 0.9;
           letter-spacing: 1px;
           color: #a5f6ff;
@@ -307,7 +329,7 @@ export default function ResumePage({ src }) {
         }
         .resume-detail-top-title {
           font-family: 'Anton', sans-serif;
-          font-size: 42px;
+          font-size: 36px;
           line-height: 0.92;
           letter-spacing: 1px;
         }
@@ -348,8 +370,8 @@ export default function ResumePage({ src }) {
         }
         .resume-detail-row-title {
           font-family: 'Anton', sans-serif;
-          font-size: 28px;
-          line-height: 1;
+          font-size: 24px;
+          line-height: 1.1;
           color: #f2fcff;
         }
         .resume-detail-status {
@@ -393,18 +415,14 @@ export default function ResumePage({ src }) {
 
       <div className="resume-overlay">
         <div className="resume-stack">
-          <div className={`resume-list-tag${mounted ? " mounted" : ""}`}>LIST</div>
+          <div className={`resume-list-tag${mounted ? " mounted" : ""}`}>SIDE PROJECTS</div>
           {ITEMS.map((item, index) => (
             <div
               key={item.id}
               className={`resume-card-wrap${active === index ? " active" : ""}${mounted ? " mounted" : ""}`}
               style={{ transitionDelay: `${index * 55}ms` }}
-              onMouseEnter={() => {
-                setActive(index);
-              }}
-              onClick={() => {
-                setActive(index);
-              }}
+              onMouseEnter={() => setActive(index)}
+              onClick={() => setActive(index)}
             >
               <div className="resume-card">
                 <div className="resume-badge">
@@ -425,114 +443,32 @@ export default function ResumePage({ src }) {
           ))}
         </div>
 
-        {active === 0 && (
-          <div className="resume-detail-panel">
-            <div className="resume-detail-top">
-              <div className="resume-detail-top-index">01</div>
-              <div className="resume-detail-top-title">EDUCATION</div>
-              <div className="resume-detail-top-progress">8.34</div>
-            </div>
-            <div className="resume-detail-list">
-              {EDUCATION_ROWS.map((row) => (
-                <div className="resume-detail-row" key={row.index}>
-                  <div className="resume-detail-row-index">{row.index}</div>
-                  <div className="resume-detail-row-title">{row.title}</div>
-                  <div className="resume-detail-status">{row.status}</div>
-                </div>
+        <div className="resume-detail-panel">
+          <div className="resume-detail-top">
+            <div className="resume-detail-top-index">{detail.index}</div>
+            <div className="resume-detail-top-title">{detail.title}</div>
+            <div className="resume-detail-top-progress">{ITEMS[active].rank}</div>
+          </div>
+
+          <div className="resume-detail-list">
+            {detail.rows.map((row) => (
+              <div className="resume-detail-row" key={row.index}>
+                <div className="resume-detail-row-index">{row.index}</div>
+                <div className="resume-detail-row-title">{row.title}</div>
+                <div className="resume-detail-status">{row.status}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="resume-detail-bottom">
+            <div className="resume-detail-bottom-title">DESCRIPTION</div>
+            <div className="resume-detail-bullets">
+              {detail.bullets.map((b, i) => (
+                <div className="resume-detail-bullet" key={i}>{b}</div>
               ))}
             </div>
-            <div className="resume-detail-bottom">
-              <div className="resume-detail-bottom-title">DETAILS</div>
-              <div className="resume-detail-bullets">
-                <div className="resume-detail-bullet">- B.Tech in Computer Science Engineering from Manipal University Jaipur.</div>
-                <div className="resume-detail-bullet">- Graduated with CGPA 8.34/10 in 2020.</div>
-              </div>
-            </div>
           </div>
-        )}
-
-        {active === 1 && (
-          <div className="resume-detail-panel">
-            <div className="resume-detail-top">
-              <div className="resume-detail-top-index">02</div>
-              <div className="resume-detail-top-title">TECHNICAL SKILLS</div>
-              <div className="resume-detail-top-progress">6/6</div>
-            </div>
-            <div className="resume-detail-list">
-              {SKILLS_ROWS.map((row) => (
-                <div className="resume-detail-row" key={row.index}>
-                  <div className="resume-detail-row-index">{row.index}</div>
-                  <div className="resume-detail-row-title">{row.title}</div>
-                  <div className="resume-detail-status">{row.status}</div>
-                </div>
-              ))}
-            </div>
-            <div className="resume-detail-bottom">
-              <div className="resume-detail-bottom-title">PRACTICES</div>
-              <div className="resume-detail-bullets">
-                <div className="resume-detail-bullet">- Agile delivery, fixed-price project management, sprint planning.</div>
-                <div className="resume-detail-bullet">- CI/CD with Jenkins, systematic code reviews, JUnit coverage.</div>
-                <div className="resume-detail-bullet">- Client expectation management and stakeholder communication.</div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {active === 2 && (
-          <div className="resume-detail-panel">
-            <div className="resume-detail-top">
-              <div className="resume-detail-top-index">03</div>
-              <div className="resume-detail-top-title">EXPERIENCE</div>
-              <div className="resume-detail-top-progress">6+YR</div>
-            </div>
-            <div className="resume-detail-list">
-              {EXPERIENCE_ROWS.map((row) => (
-                <div className="resume-detail-row" key={row.index}>
-                  <div className="resume-detail-row-index">{row.index}</div>
-                  <div className="resume-detail-row-title">{row.title}</div>
-                  <div className="resume-detail-status">{row.status}</div>
-                </div>
-              ))}
-            </div>
-            <div className="resume-detail-bottom">
-              <div className="resume-detail-bottom-title">HIGHLIGHTS</div>
-              <div className="resume-detail-bullets">
-                <div className="resume-detail-bullet">- Client: Idera Inc. — Enterprise Data & Developer Tools ISV.</div>
-                <div className="resume-detail-bullet">- Owns end-to-end delivery of fixed-price projects across 7 products.</div>
-                <div className="resume-detail-bullet">- Integrated libgit, WebView2, AI chatbot frameworks into C++ apps.</div>
-                <div className="resume-detail-bullet">- Built ETL pipelines and static code analysis engines with JavaCC/ANTLR.</div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {active === 3 && (
-          <div className="resume-detail-panel">
-            <div className="resume-detail-top">
-              <div className="resume-detail-top-index">04</div>
-              <div className="resume-detail-top-title">ACHIEVEMENTS</div>
-              <div className="resume-detail-top-progress">MAX</div>
-            </div>
-            <div className="resume-detail-list">
-              {ACHIEVEMENT_ROWS.map((row) => (
-                <div className="resume-detail-row" key={row.index}>
-                  <div className="resume-detail-row-index">{row.index}</div>
-                  <div className="resume-detail-row-title">{row.title}</div>
-                  <div className="resume-detail-status">{row.status}</div>
-                </div>
-              ))}
-            </div>
-            <div className="resume-detail-bottom">
-              <div className="resume-detail-bottom-title">DETAILS</div>
-              <div className="resume-detail-bullets">
-                <div className="resume-detail-bullet">- Zero QE bugs at RC for 4 consecutive years across 7-8 projects/year.</div>
-                <div className="resume-detail-bullet">- Refactored core DB access layer for 80% query performance gain.</div>
-                <div className="resume-detail-bullet">- Shipped across ER/Studio, WhereScape RED, Aqua Data Studio, Kiuwan, LANSA.</div>
-              </div>
-            </div>
-          </div>
-        )}
-
+        </div>
       </div>
     </div>
   );

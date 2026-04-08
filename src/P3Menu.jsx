@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const ITEMS = [
   { id: "about",   label: "ABOUT ME",      page: "about",   fontSize: 80, offsetX: 0,  offsetY: 0,  skew: -6,  skewY: 10  },
   { id: "resume",  label: "RESUME",        page: "resume",  fontSize: 66, offsetX: 20, offsetY: 8,  skew: -11, skewY: -10 },
-  { id: "github",  label: "GITHUB LINK",   page: "github",  fontSize: 68, offsetX: 8, offsetY: 6,  skew: 0, skewY: -4  },
+  { id: "github",  label: "GITHUB",         page: "github",  fontSize: 68, offsetX: 8, offsetY: 6,  skew: 0, skewY: -4, href: "https://github.com/ishanrawat97" },
   { id: "socials", label: "SOCIALS",       page: "socials", fontSize: 74, offsetX: 16, offsetY: 8,  skew: -3,  skewY: 5   },
   { id: "sideproj",label: "SIDE PROJECTS", page: "sideproj",fontSize: 56, offsetX: 10, offsetY: 6,  skew: -4,  skewY: 7   },
 ];
@@ -35,7 +35,11 @@ export default function P3Menu({ onNavigate }) {
     const onKey = (e) => {
       if (e.key === "ArrowUp")   activate(Math.max(0, active - 1));
       if (e.key === "ArrowDown") activate(Math.min(ITEMS.length - 1, active + 1));
-      if (e.key === "Enter")     onNavigate?.(ITEMS[active].page);
+      if (e.key === "Enter") {
+        const item = ITEMS[active];
+        if (item.href) window.open(item.href, "_blank");
+        else onNavigate?.(item.page);
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -193,15 +197,15 @@ export default function P3Menu({ onNavigate }) {
         .p3-name-tag {
           position: absolute;
           top: 18px;
-          left: 22px;
+          left: 32px;
           z-index: 20;
           font-family: 'Anton', sans-serif;
           font-style: italic;
-          font-size: 108px;
+          font-size: 72px;
           line-height: 0.88;
           letter-spacing: 2px;
           color: rgba(10, 10, 14, 0.64);
-          transform: rotate(18deg);
+          transform: rotate(12deg);
           transform-origin: left top;
           user-select: none;
           pointer-events: none;
@@ -216,7 +220,7 @@ export default function P3Menu({ onNavigate }) {
 
       <div className="p3-overlay">
         <div className="p3-name-tag">
-          <span>jade's</span>
+          <span>ishan's</span>
           <span>persona</span>
         </div>
         <div className="p3-stripe" />
@@ -241,7 +245,7 @@ export default function P3Menu({ onNavigate }) {
                   marginTop: item.offsetY,
                   transitionDelay: mounted ? `${i * 80}ms` : "0ms",
                 }}
-                onClick={(e) => { e.preventDefault(); onNavigate?.(item.page); }}
+                onClick={(e) => { e.preventDefault(); if (item.href) window.open(item.href, "_blank"); else onNavigate?.(item.page); }}
                 onMouseEnter={() => activate(i)}
                 aria-current={isActive ? "page" : undefined}
               >

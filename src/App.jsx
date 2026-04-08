@@ -10,6 +10,7 @@ import ResumePage from './ResumePage'
 import PageTransition from './PageTransition'
 import Socials from './Socials'
 import AboutMe from './AboutMe'
+import SideProjects from './SideProjects'
 import './App.css'
 
 function MenuScreen() {
@@ -39,11 +40,35 @@ function AnimatedRoutes() {
         <Route path="/socials" element={
           <PageTransition variant="socials"><Socials /></PageTransition>
         } />
+        <Route path="/sideproj" element={
+          <PageTransition><SideProjects src={main3} /></PageTransition>
+        } />
       </Routes>
     </AnimatePresence>
   )
 }
 
+function ControlsHint() {
+  const location = useLocation()
+  const isHome = location.pathname === '/'
+  return (
+    <div className="global-controls">
+      <span className="gc-key">↑↓</span><span className="gc-label">SELECT</span>
+      <span className="gc-sep" />
+      <span className="gc-key">↵</span><span className="gc-label">CONFIRM</span>
+      {!isHome && <>
+        <span className="gc-sep" />
+        <span className="gc-key">ESC</span><span className="gc-label">BACK</span>
+      </>}
+    </div>
+  )
+}
+
 export default function App() {
-  return <AnimatedRoutes />
+  return (
+    <>
+      <AnimatedRoutes />
+      <ControlsHint />
+    </>
+  )
 }
